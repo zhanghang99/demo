@@ -1,0 +1,10 @@
+.container{
+  width:1050px;
+  column-width: 330px;
+  column-gap: 5px;
+}
+.container div{
+  float:left;
+  width:330px;
+  margin-bottom:10px;
+}

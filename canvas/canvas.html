@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload = function(){
+            function Draw(id){
+                let c = document.querySelector(id);
+                c.height = 500;
+                c.width = 500;
+                let ctx = c.getContext('2d');
+                let timer = null;
+                let num = 0;
+                function repaint(){
+                    timer = setTimeout(()=>{
+                        ctx.clearRect(0,0,500,500);
+                        round(ctx,num);
+                        num++;
+                        timer = null;
+                        if(num <= 360){
+                            repaint();
+                        }
+                    },0)
+                }
+                repaint();
+            }
+            function round(ctx,num){
+                ctx.beginPath();
+                ctx.lineWidth = 10;
+                ctx.strokeStyle = '#ccc';
+                ctx.arc(100, 100, 90, 0, Math.PI*2,true);
+                ctx.stroke();
+                ctx.closePath();
+                //绘制第二个圆
+                ctx.beginPath();
+                ctx.lineWidth = 10; //10px
+                ctx.lineCap = "round";
+                ctx.strokeStyle = '#000';
+                ctx.arc(100, 100, 90, 0, (Math.PI/180)*num,false);
+                ctx.stroke();
+                ctx.closePath();
+                // 绘制中间的文字
+                ctx.font = '40px Arial';
+                ctx.fillStyle = '#f30';
+                ctx.textBaseline = 'middle';
+                ctx.textAlign = 'center';
+                ctx.fillText('50.0%', 100, 100);
+            }
+            Draw('#main');
+        }
+    </script>
+</head>
+<body>
+    <canvas id="main"></canvas>
+</body>
+</html>

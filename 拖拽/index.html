@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .box{
+        width:100px;
+        height:100px;
+        background: red;
+        position: absolute;
+        top:0;
+    }
+    .left{
+        left:0;
+    }
+    .right{
+        right:0;
+    }
+</style>
+
+<body>
+    <div id="div1" class="box left">DIV1</div>
+    <div id="div2" class="box right">DIV2</div>
+<script>
+    class Parent{
+        constructor(id){
+            this.oDiv = document.querySelector(id);
+            this.top = 0;
+            this.left = 0;
+            this.init()
+        }
+        init(){
+            this.oDiv.onmousedown = function(ev){
+                this.top = ev.clientX - this.oDiv.offsetLeft;
+                this.left  = ev.clientY - this.oDiv.offsetTop;
+                document.onmousemove = this.move.bind(this);
+                document.onmouseup = this.up.bind(this);
+                return false;
+            }.bind(this)
+        }
+        move(ev){
+            this.oDiv.style.left = ev.clientX - this.top + 'px';
+            this.oDiv.style.top = ev.clientY - this.left + 'px';
+        }
+        up(){
+            document.onmousemove=null;
+            document.onmouseup=null;
+        }
+    }
+    new Parent('#div1');
+    class Son extends Parent{
+        constructor(arg){
+            super(arg)
+        }
+    }
+    new Son('#div2');
+</script>
+</body>
+</html>
