@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #throttle{
+      width:500px;
+      height:5000px;
+      border:1px solid red;
+    }
+  </style>
+</head>
+<body>
+  <div id="throttle"></div>
+  <script>
+    // 函数节流
+    var canRun = true;
+    document.querySelector("body").onscroll = function(){
+        if(!canRun){
+            // 判断是否已空闲，如果在执行中，则直接return
+            return;
+        }
+
+        canRun = false;
+        setTimeout(function(){
+            console.log("函数节流");
+            canRun = true;
+        }, 1000);
+    };
+  </script>
+</body>
+</html>

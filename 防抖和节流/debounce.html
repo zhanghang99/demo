@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #debounce{
+      width:500px;
+      height:5000px;
+      border:1px solid red;
+    }
+    .aa{
+      width:500px;
+      height:500px;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+  <input type="text" id="fangdou">
+  <div id="debounce"></div>
+  <script>
+    // 滚动函数防抖
+    let timer = false;
+    document.querySelector("body").onscroll = function(){
+        clearTimeout(timer); // 清除未执行的代码，重置回初始化状态
+
+        timer = setTimeout(function(){
+            console.log("函数防抖");
+        }, 1000);
+    };
+
+    // 输入框函数防抖
+    let time = false;
+    document.querySelector('#fangdou').onkeyup = function(){
+      clearTimeout(time);
+      time = setTimeout(()=>{
+        console.log(this.value)
+      },300)
+    }
+  </script>
+</body>
+</html>
