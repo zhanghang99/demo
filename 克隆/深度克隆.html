@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //数组或对象的深度克隆
+    function deepClone(obj){
+      let newObj = Object.prototype.toString.call(obj) === "[object Array]" ? [] : {};
+      for(let i in obj){
+        newObj[i] = Object.prototype.toString.call(obj[i]) === "[object Object]" 
+                    || Object.prototype.toString.call(obj[i]) === "[object Array]"
+                     ? deepClone(obj[i]) : obj[i];
+      }
+      return newObj;
+    }
+    let arr = [1,2,[3,[4]],{a:5}];
+    let arr1 = deepClone(arr);
+    arr1[3].a = 6;
+    arr1[2][1][0] = 9;
+    console.log(arr);
+    console.log(arr1);
+    let obj1 = {a:1,b:{c:[1,2,3]}}
+    let obj2 = deepClone(obj1)
+    obj1.b.c[0] = 4;
+    console.log(obj1);
+    console.log(obj2);
+  </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function setCookie(name,value,iDay){
+      let oDate = new Date();
+      oDate.setDate(oDate.getDate() + iDay);
+      document.cookie = name + '=' + value + ';expires=' + oDate;
+    }
+    function getCookie(name){
+      let arr = document.cookie.split('; ');
+      for(let i = 0;i < arr.length ; i++){
+        let arr2 = arr[i].split('=');
+        if(arr2[0] == name){
+          return arr2[i];
+        }
+      }
+      return undefined;
+    }
+    function removeCookie(name){
+      setCookie(name,1,-1);
+    }
+    setCookie('userName','zhanghang',365);
+    document.cookie = 'name=zhanghang'
+    console.log(document.cookie);
+  </script>
+</body>
+</html>
