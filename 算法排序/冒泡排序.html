@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //数组
+    let arr = [1,4,-8,-3,6,12,9,8];
+    function bubbling(arr){
+      for(let i = 0; i < arr.length - 1; i++){
+        for(let j = 0; j <= arr.length - 1 - i ; j ++){
+          if(arr[j] > arr[j + 1]){
+            [arr[j],arr[j + 1]] = [arr[j + 1],arr[j]]
+          }
+        }
+      }
+      return arr
+    }
+    console.log(bubbling(arr));
+
+    //数组对象
+    let arr1 = [
+      {a:1,b:2,c:3},
+      {a:1,b:1,c:3},
+      {a:1,b:0,c:3},
+      {a:1,b:4,c:3},
+      {a:1,b:3,c:3},
+      {a:1,b:-2,c:3},
+      {a:1,b:7,c:3},
+      {a:1,b:5,c:4},
+    ];
+    function bubbling1(arr){
+      for(let i = 0 ; i < arr.length - 1 ; i ++){
+        for(let j = 0 ; j < arr.length - 1 - i ; j ++){
+          if(arr[j]['b'] > arr[j + 1]['b']){
+            [arr[j],arr[j + 1]] = [arr[j + 1],arr[j]];
+          }
+        }
+      }
+      return arr;
+    }
+    console.log(bubbling1(arr1));
+  </script>
+</body>
+</html>
+2,1,5,4,3
+1,2,5,4,3
+1,2,4,3,5
+1,2,3,4,5
