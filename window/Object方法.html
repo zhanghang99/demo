@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //Object.assign方法用于对象的合并，将源对象（ source ）的所有可枚举属性，复制到目标对象（ target ）
+    const target = { a: 1 };
+    const source1 = { b: 2 };
+    const source2 = { c: 3 };
+    Object.assign(target, source1, source2);
+    console.log(target);
+
+    console.log('create***********************************************************');
+    //Object.create()方法是ECMAScript 5中新增的方法，这个方法用于创建一个新对象。被创建的对象继承另一个对象的原型，在创建新对象时可以指定一些属性。
+
+  </script>
+</body>
+</html>
