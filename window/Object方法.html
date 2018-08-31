@@ -17,7 +17,147 @@
 
     console.log('create***********************************************************');
     //Object.create()方法是ECMAScript 5中新增的方法，这个方法用于创建一个新对象。被创建的对象继承另一个对象的原型，在创建新对象时可以指定一些属性。
+    let secondLine = Object.create(Object.prototype, {
+          x: {
+              value: undefined, 
+              writable: true, 
+              configurable: true, 
+              enumerable: true
+          },
+          y: {
+              value: undefined, 
+              writable: true, 
+              configurable: true, 
+              enumerable: true
+          }
+    });
+    console.log(secondLine);
 
+    console.log('defineProperties***********************************************************');
+    //Object.defineProperties() 方法直接在一个对象上定义新的属性或修改现有属性，并返回该对象。
+    let obj1 = {};
+    Object.defineProperties(obj1, {
+      'property1': {
+        value: true,
+        writable: true
+      },
+      'property2': {
+        value: 'Hello',
+        writable: false
+      }
+    });
+    console.log(obj1);
+
+    console.log('defineProperty***********************************************************');
+    //Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个已经存在的属性， 并返回这个对象。
+    var data = {}; 
+    Object.defineProperty(data, "b", { 
+      set: function(newValue) { 
+        //当data.b的值改变的时候更新＃test的视图 
+        // view.textContent=newValue; 
+      }, 
+      get: function() { 
+        
+      } 
+    }); 
+    setInterval(function(){ 
+      data["b"] = "data.b的值更新了，我要更新视图"; 
+    },1000); 
+
+    console.log('keys***********************************************************');
+    //ES5 引入了Object.keys方法，返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（ enumerable ）属性的键名。
+    var obj4 = { foo: "bar", baz: 42 };
+    Object.keys(obj4)// ["foo", "baz"]
+    console.log(Object.keys(obj4));
+
+
+    console.log('values***********************************************************');
+    //Object.values() 方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（ enumerable ）属性的键值。
+    let obj2 = { foo: "bar", baz: 42 };
+    Object.values(obj2)// ["bar", 42]
+    console.log(Object.values(obj2));
+
+
+    console.log('entries***********************************************************');
+    //Object.entries方法返回一个数组，成员是参数对象自身的（不含继承的）所有可遍历（ enumerable ）属性的键值对数组。
+    var obj3 = { foo: 'bar', baz: 42 };
+    Object.entries(obj3)// [ ["foo", "bar"], ["baz", 42] ]
+    console.log(Object.entries(obj3));
+
+
+    console.log('getPrototypeOf***********************************************************');
+    //Object.getPrototypeOf 返回对象的原型。
+    function Pasta(grain, width) {
+        this.grain = grain;
+        this.width = width;
+    }
+    var spaghetti = new Pasta("wheat", 0.2);
+    var proto = Object.getPrototypeOf(spaghetti);
+    console.log(proto);
+
+
+    console.log('is***********************************************************');
+    //Object.is()是ES6新增的用来比较两个值是否严格相等的方法，与===的行为基本一致。
+    console.log(Object.is(+0, -0)) // false
+    console.log(Object.is(NaN, NaN)) // true
+
+
+    console.log('isExtensible***********************************************************');
+    //Object.isExtensible 返回一个值，该值指示是否可向对象添加新属性。
+    var obj7 = { pasta: "spaghetti", length: 10 };
+    let result = Object.isExtensible(obj7);
+    console.log(result);
+
+
+    console.log('preventExtensions***********************************************************');
+    //Object.preventExtensions 阻止对象扩展，让一个对象变的不可扩展，也就是永远不能再添加新的属性
+    var obj8 = { pasta: "spaghetti"};
+    Object.preventExtensions(obj8);
+    let result1 = Object.isExtensible(obj8);
+    console.log(result1);
+
+
+    console.log('freeze***********************************************************');
+    //Object.freeze阻止修改现有属性的特性和值，并阻止添加新属性。
+    const obj5 = {
+        a:1,
+    };
+    Object.freeze(obj5);
+
+
+    console.log('isFrozen***********************************************************');
+    //Object.isFrozen 如果无法在对象中修改现有属性的特性和值，且无法向对象添加新属性，则返回 true。
+    var obj10= { pasta: "spaghetti"};
+    Object.freeze(obj10);
+    console.log(Object.isFrozen(obj10));
+
+
+    console.log('isSealed***********************************************************');
+    //Object.isSealed 如果无法在对象中修改现有属性的特性，且无法向对象添加新属性，则返回 true。
+    var obj9= { pasta: "spaghetti"};
+    Object.seal(obj9);
+    console.log(Object.isSealed(obj9));
+
+
+    console.log('valueOf***********************************************************');
+    //valueOf() 方法可返回 String 对象的原始值。原始值是由从 String 对象下来的所有对象继承的。valueOf() 方法通常由 JavaScript 在后台自动进行调用，而不是显式地处于代码中。
+    
+
+
+    console.log('toString***********************************************************');
+    //Object.prototype.toString() 方法可把一个逻辑值转换为字符串，并返回结果。
+    let obj11 = {a:1};
+    console.log(Object.toString(obj11));//function Object() { [native code] }
+    console.log(Object.prototype.toString(obj11));//[object Object]
+    var n = 123456789
+    n.toString() // "123456789"
+
+
+    console.log('toLocaleString***********************************************************');
+    //JavaScript toLocaleString() 方法把数组转换为本地字符串
+    var n = 123456789
+    n.toLocaleString() // "123,456,789"
+    
   </script>
 </body>
 </html>

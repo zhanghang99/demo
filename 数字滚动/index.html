@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style lang="">
+    #container{
+      height:30px;
+      overflow: hidden;
+    }
+    #container div{
+      height:30px;
+      font-size:28px;
+      font-weight: bold;
+    }
+    #container .box{
+      animation: myfirst 0.7s linear 0s infinite alternate;
+    }
+    @keyframes myfirst
+    {
+      0%   {margin-top: 0;}
+      25%  {margin-top: -75px;}
+      50%  {margin-top: -150px;}
+      75%  {margin-top: -225px;}
+      100% {margin-top: -300px;}
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div class="box">
+      <div>0</div>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>4</div>
+      <div>5</div>
+      <div>6</div>
+      <div>7</div>
+      <div>8</div>
+      <div>9</div>
+    </div>
+  </div>
+  <script>
+    let box=document.querySelector(".box");
+    setTimeout(()=>{
+      box.style.animation="myfirst 1s linear 0s infinite"
+      setTimeout(()=>{
+        box.style.animation="myfirst 1.8s linear 0s infinite"
+        setTimeout(()=>{
+          box.style.animation="myfirst 3s linear 0s infinite"
+          setTimeout(()=>{
+            box.style.animation=""
+            box.innerHTML=`
+              <div>5</div>
+              <div>0</div>
+              <div>1</div>
+              <div>2</div>
+              <div>3</div>
+              <div>4</div>
+              <div>5</div>
+            `
+            var tt=document.styleSheets[0];
+            tt.insertRule(`
+                @keyframes myfirst
+                  {
+                    0%   {margin-top: 0;}
+                    25%  {margin-top: -52.5px;}
+                    50%  {margin-top: -105px;}
+                    75%  {margin-top: -157.5px;}
+                    100% {margin-top: -180px;}
+                  }`,
+            4);//写入样式
+            box.style.animation="myfirst 6s linear"
+          },1000)
+        },1000)
+      },700)
+    },500)
+    
+    
+    
+  </script>
+</body>
+</html>

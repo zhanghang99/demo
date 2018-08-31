@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    //ES5提供String.fromCharCode方法，用于从码点返回对应字符，但是这个方法不能识别32位的UTF-16字符（Unicode编号大于0xFFFF）。
+    //ES6提供了String.fromCodePoint方法，可以识别0xFFFF的字符，弥补了String.fromCharCode方法的不足。在作用上，正好与codePointAt方法相反。
+    console.log('fromCharCode***********************************************************');
+    //fromCharCode() 可接受一个指定的 Unicode 值，然后返回一个字符串。
+    console.log(String.fromCharCode(72,69,76,76,79));
+
+
+    console.log('fromCodePoint***********************************************************');
+    //String.fromCodePoint 函数  ES5 提供String.fromCharCode()方法，用于从码点返回对应字符，但是这个方法不能识别 32 位的 UTF-16 字符（Unicode 编号大于0xFFFF）。
+    console.log(String.fromCodePoint(97, 98, 99));
+
+
+    console.log('charAt***********************************************************');
+    //charAt() 方法可返回指定位置的字符。
+    let str0="Hello world!"
+    console.log(str0.charAt(1))
+
+
+    console.log('charCodeAt***********************************************************');
+    //charCodeAt() 方法可返回指定位置的字符的 Unicode 编码。这个返回值是 0 - 65535 之间的整数。
+    let str="张Hello world!"
+    console.log(str.charCodeAt(0))
+
+
+    console.log('codePointAt***********************************************************');
+    //codePointAt() 方法可返回指定位置的字符的 Unicode 编码。这个返回值是 0 - 65535 之间的整数。
+    let str1="张Hello world!"
+    console.log(str.codePointAt(1))
+
+
+    console.log('anchor***********************************************************');
+    //anchor() 方法用于创建 HTML 锚。
+    let txt = "Chapter 10";
+    txt.anchor("chap10");
+    console.log(txt.anchor("chap10"));//<a name="chap10">Chapter 10</a>
+
+
+    console.log('big***********************************************************');
+    //big() 方法用于把字符串显示为大号字体。
+    let str2="Hello world!"
+    document.write(str2.big())
+
+
+    console.log('blink***********************************************************');
+    //blink()函数返回包含指定字符串文本的<blink>标签字符串。
+    let str3 = "Google搜索引擎";
+    document.writeln( str3.blink() ); // <blink>Google搜索引擎</blink>
+
+    
+    console.log('bold***********************************************************');
+    //bold()函数返回包含指定字符串文本的<b>标签字符串。
+    let str4 = "CodePlayer";
+    document.writeln( str4.bold() ); // <b>CodePlayer</b>
+
+    
+    console.log('concat***********************************************************');
+    //concat() 方法用于连接两个或多个字符串。
+    let str5="Hello "
+    let str6="world!"
+    console.log(str5.concat(str6))
+
+    
+    console.log('constructor***********************************************************');
+    //constructor 属性返回对创建此对象的数组函数的引用。
+    let str7=new Array();
+    if (str7.constructor==Array)
+    {
+      console.log("This is an Array");
+    }
+    if (str7.constructor==Boolean)
+    {
+      console.log("This is a Boolean");
+    }
+    if (str7.constructor==Date)
+    {
+      console.log("This is a Date");
+    }
+    if (str7.constructor==String)
+    {
+      console.log("This is a String");
+    }
+
+
+    console.log('startsWith   endsWith***********************************************************');
+    //在操作字符串（String）类型的时候，startsWith(anotherString)和endsWith(anotherString)是非常好用的方法。
+    //其中startsWith判断当前字符串是否以anotherString作为开头，而endsWith则是判断是否作为结尾。
+    console.log("abcd".startsWith("ab")); // true
+    console.log("abcd".endsWith("cd"));  // true
+
+
+    console.log('fixed***********************************************************');
+    //fixed() 方法用于把字符串显示为打字机字体。 函数返回包含指定字符串文本的<tt>标签字符串。
+    let str8="Hello world!"
+    document.write(str8.fixed())
+
+    
+    console.log('fontcolor***********************************************************');
+    //fontcolor() 方法用于按照指定的颜色来显示字符串。
+    let str9="Hello world!"
+    document.write(str9.fontcolor("Red"))
+
+    
+    console.log('fontsize***********************************************************');
+    //fontsize() 方法用于按照指定的尺寸来显示字符串。
+    let str10="Hello world!"
+    document.write(str10.fontsize(7))
+
+    
+    console.log('includes***********************************************************');
+    //string.includes(s,i)方法参数1为需要查询字符(串),参数2为查询的起始位置，返回布尔值，而indexOf返回查询的位置。
+    let str11="wbiokrw";
+    console.log(str11.includes('wb'));//结果:true
+    console.log(str11.includes('wbiokr'));//结果：true
+    console.log(str11.includes('w',1));//false
+    console.log(str11.includes('b',1));//true
+
+    
+    console.log('indexOf***********************************************************');
+    //indexOf() 方法可返回某个指定的字符串值在字符串中首次出现的位置。返回下标
+    let str12="Hello world!"
+    console.log(str12.indexOf("world"))
+
+    
+    console.log('lastIndexOf***********************************************************');
+    //lastIndexOf() 方法可返回一个指定的字符串值最后出现的位置，在一个字符串中的指定位置从后向前搜索。
+    let str13="Hello world!"
+    console.log(str13.lastIndexOf("lo"))
+
+
+    console.log('italics***********************************************************');
+    //italics() 方法用于把字符串显示为斜体。
+    let str14="Hello world!"
+    document.write(str14.italics())
+
+    
+    console.log('link***********************************************************');
+    //link() 方法用于把字符串显示为超链接
+    let str15="Free Web Tutorials!"
+    document.write(str15.link("http://www.w3school.com.cn"))
+
+    
+    console.log('localeCompare***********************************************************');
+    //localeCompare用本地特定的顺序来比较两个字符串。如果字符串1小于字符串2，则返回小于0的数字；
+    //如果字符串1大于字符串2，则返回数字1；如果字符串1等于字符串2，则返回数字0；
+    let str16= "JavaScript";
+    let str17 = "javascript";
+    console.log(str16.localeCompare(str17));
+
+    
+    console.log('match***********************************************************');
+    //match() 方法可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。返回一个数组
+    let str18="The rain in SPAIN stays mainly in the plain"; 
+    console.log(str18.match(/ain/g));
+
+    
+    console.log('padStart  padEnd***********************************************************');
+    //ES6 引入了字符串补全长度的功能，如果某个字符串不够指定长度，会在头部活尾部补全。padStart() 用于头部补全；padEnd() 用于尾部补全。
+    console.log('xx'.padStart(5, 'ab')) // 'ababx'
+    console.log('xxx'.padEnd(5, 'ab')) // 'xxxab'
+
+    
+    console.log('repeat***********************************************************');
+    //string.repeat(num)方法,参数num为重复字符串的次数，各种情况下的返回值见代码。
+    let str19="wbiokr";
+    console.log(str19.repeat(2));//wbiokrwbiokr"str被重复了2次返回，str不改变
+
+    
+    console.log('replace***********************************************************');
+    //replace() 方法用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。
+    let str20="Visit Microsoft!"
+    console.log(str20.replace(/Microsoft/, "W3School"))
+
+    
+    console.log('search***********************************************************');
+    //search() 方法用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串。如果没有找到任何匹配的子串，则返回 -1。
+    let str21="Visit W3School!"
+    console.log(str21.search(/3S/))
+
+    
+    console.log('slice***********************************************************');
+    //slice() 方法可提取字符串的某个部分，并以新的字符串返回被提取的部分。stringObject.slice(start,end)==string.substring(from, to)
+    let str22="Hello happy world!"
+    console.log(str22.slice(3,7))
+
+    
+    console.log('small***********************************************************');
+    //small() 方法用于把字符串显示为小号字。stringObject.small()
+    let str23="Hello world!"
+    document.write(str23.small())
+
+    
+    console.log('split***********************************************************');
+    //split() 方法用于把一个字符串分割成字符串数组。stringObject.split(separator,howmany)
+    let str24="How are you doing today?"
+    console.log(str24.split(" ",3))
+
+    
+    console.log('strike***********************************************************');
+    //strike() 方法用于显示加删除线的字符串。stringObject.strike()
+    let str25="Hello world!"
+    document.write(str25.strike())
+
+    
+    console.log('sub***********************************************************');
+    //sub() 方法用于把字符串显示为下标。stringObject.sub()
+    let str26="Hello world!"
+    document.write(str26.sub())
+
+    
+    console.log('substr***********************************************************');
+    //substr() 方法可在字符串中抽取从 start 下标开始的指定数目的字符。stringObject.substr(start,length)
+    let str27="Hello world!"
+    console.log(str27.substr(3,7))//3表示从下标3开始，7表示截取7位
+
+    
+    console.log('substring***********************************************************');
+    //substring() 方法用于提取字符串中介于两个指定下标之间的字符。string.substring(from, to)==stringObject.slice(start,end)
+    let str28="Hello world!";
+    console.log(str28.substring(3,7));
+
+    
+    console.log('sup***********************************************************');
+    //sup() 方法用于把字符串显示为上标。
+    let str29="Hello world!"
+    document.write(str29.sup())
+
+    
+    console.log('toLocaleLowerCase***********************************************************');
+    //toLocaleLowerCase()函数用于将当前字符串的所有字母转为小写，并返回转换后的字符串。该函数会考虑到宿主环境中的当前区域设置。
+    let str30 = "CodePlayer";
+    console.log( str30.toLocaleLowerCase() ); // codeplayer
+
+    
+    console.log('toLocaleUpperCase***********************************************************');
+    //toLocaleUpperCase()函数用于将当前字符串中的所有字母转为大写，并返回转换后的字符串。该函数会考虑到宿主环境中的当前区域设置。
+    let str31 = "CodePlayer";
+    console.log( str31.toLocaleUpperCase() ); // CODEPLAYER
+
+    
+    console.log('toLowerCase***********************************************************');
+    //toLowerCase()函数用于将当前字符串的所有字母转为小写，并返回转换后的字符串。该函数基于常规的Unicode大小写映射进行转换。
+    let str32 = "CodePlayer";
+    console.log( str32.toLowerCase() ); // codeplayer
+
+
+    console.log('toUpperCase***********************************************************');
+    //toUpperCase()函数用于将当前字符串中的所有字母转为大写，并返回转换后的字符串。该函数基于常规的Unicode大小写映射进行转换。
+    let str33 = "CodePlayer";
+    console.log( str33.toUpperCase() ); // CODEPLAYER
+
+    
+    console.log('toString***********************************************************');
+    //toString() 方法可把一个逻辑值转换为字符串，并返回结果。booleanObject.toString()
+    let str34 = new Boolean(true)
+    console.log(str34.toString())
+
+    
+    console.log('trim trimStart trimEnd trimLeft trimRight***********************************************************');
+    //trim 方法从字符串中移除前导空格、尾随空格和行终止符trimStart trimEnd trimLeft trimRight。
+    let message = "    abc def     \r\n  ";
+    console.log(message);
+    console.log(message.trim());
+    console.log(message.trimStart());
+    console.log(message.trimEnd());
+    console.log(message.trimLeft());
+    console.log(message.trimRight());
+
+
+    console.log('valueOf***********************************************************');
+    //valueOf() 方法可返回 String 对象的原始值。原始值是由从 String 对象下来的所有对象继承的。
+    //valueOf() 方法通常由 JavaScript 在后台自动进行调用，而不是显式地处于代码中。stringObject.valueOf()
+    let str35="Hello world!";
+    console.log(str35.valueOf());
+
+
+    // String.raw()方法，往往用来充当模板字符串的处理函数，返回一个斜杠都被转义（即斜杠前面再加一个斜杠）的字符串，对应于替换变量后的模板字符串。
+</script>
+</body>
+</html>

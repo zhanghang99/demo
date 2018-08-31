@@ -14,10 +14,14 @@
       color:red;
     }
     .main>li>ul{
-      display:none;
+      max-height: 0;
+      overflow: hidden;
+      transition:all .5s linear;
     }
     .main>li>ul.show{
-      display:block;
+      max-height: 500px;
+      overflow: hidden;
+      transition:all 1s linear;
     }
   </style>
 </head>

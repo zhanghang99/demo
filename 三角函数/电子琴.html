@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    function lerp (value1, value2, amount) {
+      amount = amount < 0 ? 0 : amount
+      amount = amount > 1 ? 1 : amount
+      return value1 + (value2 - value1) * amount
+    }
+
+    const canvas = {
+      init () {
+        this.ele = document.createElement('canvas')
+        document.body.appendChild(this.ele)
+        this.resize()
+        window.addEventListener('resize', () => this.resize(), false)
+        this.ctx = this.ele.getContext('2d')
+        return this.ctx
+      },
+      onResize (callback) {
+        this.resizeCallback = callback
+      },
+      resize () {
+        this.width = this.ele.width = window.innerWidth * 2
+        this.height = this.ele.height = window.innerHeight * 2
+        this.ele.style.width = this.ele.width * 0.5 + 'px'
+        this.ele.style.height = this.ele.height * 0.5  + 'px'
+        this.ctx = this.ele.getContext('2d')
+        this.ctx.scale(2, 2)
+        this.resizeCallback && this.resizeCallback()
+      },
+      run (callback) {
+        requestAnimationFrame(() => {
+          this.run(callback)
+        })
+        callback(this.ctx)
+      }
+    }
+
+    const ctx = canvas.init()
+
+    let objects = []
+
+    class Nut {
+      constructor ({x, y, width, height, color}) {
+        this.x = x
+        this.y = y
+        this.width = width
+        this.curHeight = height
+        this.color = color
+        this.targetHeight = height
+      }
+      update (height) {
+        this.targetHeight = height
+      }
+      draw () {
+        this.curHeight = lerp(this.curHeight, this.targetHeight, 0.1)
+        ctx.beginPath()
+        ctx.fillStyle = this.color
+        ctx.rect(this.x, this.y - this.curHeight, this.width, this.curHeight)
+        ctx.fill()
+        ctx.closePath()
+      }
+    }
+
+    class SineNuts {
+      constructor () {
+        this.total = 7
+        this.colors = ['#FE615C', '#FFB66F', '#FFDA6C', '#E2F68B', '#8CF6F3', '#99B4F3', '#BEA1E8']
+        this.padding = 10
+        this.nuts = []
+        const perWidth = window.innerWidth / this.total - this.padding
+        for (let i = 0; i < this.total; i += 1) {
+          // space-around
+          const x = this.padding * (i + 1) + i * perWidth - this.padding * 0.5
+          const y = window.innerHeight
+          this.nuts.push(new Nut({
+            x,
+            y,
+            width: perWidth,
+            height: 0,
+            color: this.colors[i]
+          }))
+        }
+      }
+      drawNuts (t) {
+        const minHeight = 80
+        const perWidth = window.innerWidth / this.total - this.padding
+        for (let i = 0; i < this.total; i +=1) {
+          const x = this.padding * (i + 1) + i * perWidth - this.padding * 0.5
+          const nutX = x + perWidth * 0.5
+          let height = Math.sin((nutX - mouse.x) * Math.PI / window.innerWidth + Math.PI * 0.5) * window.innerHeight * 0.85
+          height = Math.max(height, minHeight)
+          this.nuts[i].update(height)
+          this.nuts[i].draw()
+        }
+        ctx.save()
+        ctx.restore()
+      }
+      draw (t) {
+        ctx.fillStyle = 'red'
+        this.drawNuts(t)
+        ctx.restore()
+      }
+    }
+
+    const init = () => {
+      objects = []
+      objects.push(new SineNuts())
+    }
+
+    document.addEventListener('click', () => {
+      init()
+    })
+
+    init()
+
+    let mouse = {
+      x: window.innerWidth * 0.5,
+      y: window.innerHeight * 0.5
+    }
+
+    window.addEventListener('mousemove', (event) => {
+      mouse.x = event.pageX
+      mouse.y = event.pageY
+    })
+
+    let tick = 0
+    canvas.run(ctx => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      tick += 0.03
+      objects.forEach(obj => {
+        obj.draw(tick)    
+      })
+    })
+
+    canvas.onResize(() => {
+      init()
+    })
+  </script>
+</body>
+</html>

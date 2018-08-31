@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .container {
+      width:500px;
+      position: relative;
+      min-height: 90px;
+      margin-bottom: 5px;
+    }
+
+    .text {
+      font-size: 0;
+      color: transparent;
+      white-space: pre-wrap; 
+    }
+
+    .textarea {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      resize: none;
+      outline: none;
+      border:1px solid #999;
+      border-radius: 5px;
+    }
+
+    /* 统一内容样式 */
+    .font-style {
+      font-family: Helvetica;
+      word-wrap: break-word;
+      word-break: break-all;
+      line-height: 48px;
+      font-size: 32px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 占位容器 -->
+    <span id="text" class="text font-style"></span>
+    <!-- 输入框 -->
+    <textarea id="textarea" class="textarea font-style"></textarea>
+  </div>
+  <div>
+    99999999999999
+  </div>
+  <script>
+    var $text = document.getElementById('text');
+    var $textarea = document.getElementById('textarea');
+
+    $textarea.addEventListener('input', function(e) {
+      console.log(e.target.value);
+      $text.innerText = e.target.value; 
+    });
+  </script>
+</body>
+</html>

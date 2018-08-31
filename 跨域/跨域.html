@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>跨域</title>
+</head>
+<body>
+  <div>
+    <h1>解决开发环境的跨域问题</h1>
+    <h3>方式一：vue的proxytable或者react的proxy</h3>
+    <p>
+      跨域是浏览器禁止的，服务端并不禁止跨域 
+      所以浏览器可以发给自己的服务端然后，由自己的服务端再转发给要跨域的服务端，做一层代理
+      vue-cli的proxyTable用的是http-proxy-middleware中间件
+      create-react-app用的是webpack-dev-server内部也是用的http-proxy-middleware
+    </p>
+    <h3>方式二：nginx等服务器代理</h3>
+    <p>
+      原理与方式一相同，都是通过访问本地服务器跨过跨域，在通过服务器请求真正资源
+    </p>
+    <h3>方式三：access-control-allow-origin:*</h3>
+    <p>
+      后台设置access-control-allow-origin:*，允许所有访问
+    </p>
+    <h3>方式四：修改host文件以及项目启动的端口和访问域</h3>
+    <p>
+      先通过配置host文件将127.0.0.1指向www.baidu.com(例)，在yarn start启动项目的端口改成后台的服务端口，请求的接口域名改成后端的ip（也可以是生产环境的域名和端口）
+    </p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    console.log("RegExp*******************************************************************");
+    //RegExp()函数的返回值是RegExp类型，返回一个新的RegExp对象。
+    // 以下三者是等价的
+    var regObj1 = new RegExp("\\d{6}"); // (字符串中的转义字符"\"要写成"\\")
+    var regObj2 = RegExp("\\d{6}");
+    var regObj3 = /\d{6}/;
+
+
+    console.log("exec*******************************************************************");
+    //exec()函数用于使用正则表达式模式在指定字符串中进行匹配查找，并将查找结果以数组形式返回。函数如果没有查找到任何匹配，则返回null。找到一个匹配的内容
+    let str1 = "abc12456def45646ghi";
+    let regExp1 = /45/;
+    console.log(regExp1.exec( str1 ));
+
+
+    console.log("test*******************************************************************");
+    //test()函数返回一个布尔值，用于指示在所搜索的字符串中是否存在正则表达式模式对应的匹配。
+    let str2="cat dog";
+    let regExp2=/cat/;
+    console.log(regExp2.test(str2));//true
+  </script>
+</body>
+</html>

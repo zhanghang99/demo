@@ -31,13 +31,13 @@
     console.log(Array.isArray([1]));//true
     console.log(Array.isArray());//false
 
-    console.log('observe***********************************************************');
-    Array.observe() 方法用于异步监视数组发生的变化，类似于针对对象的 Object.observe() 已被弃用
-    let arr2 = ['a', 'b', 'c'];
-    Array.observe(arr2, function(changes) {
-      console.log(changes);
-    });
-    arr[1] = 'B';
+    // console.log('observe***********************************************************');
+    // //Array.observe() 方法用于异步监视数组发生的变化，类似于针对对象的 Object.observe() 已被弃用
+    // let arr2 = ['a', 'b', 'c'];
+    // Array.observe(arr2, function(changes) {
+    //   console.log(changes);
+    // });
+    // arr[1] = 'B';
 
     console.log('of***********************************************************');
     //Array.of方法用于将一组值，转换为数组。
@@ -89,13 +89,12 @@
     console.log('every***********************************************************');
     //every() 方法用于检测数组所有元素是否都符合指定条件（通过函数提供）。es6语法  低版本不可用
     let arr7 = [32, 33, 16, 40];
-    let istrue = Array.every(arr7,function(age){
+    let istrue = arr7.every(function(age){
       return age >= 18;
     })
     console.log(istrue);
 
     console.log('fill***********************************************************');
-
     //fill方法使用给定值，填充一个数组。
     console.log(['a', 'b', 'c'].fill(7))// [7, 7, 7]
     console.log(new Array(3).fill(7))// [7, 7, 7]
@@ -103,15 +102,15 @@
     console.log('filter***********************************************************');
     //filter() 方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。es6语法  低版本不支持
     let arr8 = [32, 33, 16, 40];
-    let arr9 = Array.filter(arr8,function(age){
+    let arr9 = arr8.filter(function(age){
       return age >= 18;
     })
     console.log(arr9);
 
     console.log('find***********************************************************');
     //数组实例的find方法，用于找出第一个符合条件的数组成员。如果没有符合条件的成员，则返回undefined。
-    let arr9 = [1, 5, 10, 15]
-    let value = arr9.find(function(value, index, arr) {
+    let arr99 = [1, 5, 10, 15]
+    let value = arr99.find(function(value, index, arr) {
       return value > 9;
     }) // 10
     console.log(value);
@@ -128,7 +127,7 @@
     //forEach() 方法用于调用数组的每个元素，并将元素传递给回调函数。就是一for循环
     let arr11 = [1,2,3,4,5]
     arr11.forEach(function(v,i,arr){
-      return arr[i] = v * v;
+       arr[i] = v * v;
     })
     console.log(arr11);
 
@@ -183,7 +182,7 @@
     console.log(arr20);
 
     console.log('unshift***********************************************************');
-    //unshift() 方法用于把数组的第一个元素从其中删除，并返回第一个元素的值。
+    //unshift() 方法用于在数组的开头添加元素。
     let arr21 = ["Banana", "Orange", "Apple", "Mango"];
     arr21.unshift("Banana");
     console.log(arr21);
@@ -233,7 +232,7 @@
     console.log('splice***********************************************************');
     //splice() 方法向/从数组中添加/删除项目，然后返回被删除的项目。
     let arr29 = [1,5,2,4,9,8,3,9]
-    arr29.splice(1,1,6)//改变原数组
+    arr29.splice(1,1,6,6)//改变原数组
     console.log(arr29);
 
     console.log('toLocaleString***********************************************************');
