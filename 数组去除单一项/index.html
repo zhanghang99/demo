@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var arr = [1,2,4,4,3,3,1,5,3];
+      var arr1 = arr.filter((v,i)=>{
+        var result = true;
+        for(var s = 0;s<arr.length;s++){
+          if(v === arr[s] && i !== s){
+            break;
+          }
+        }
+        if(s === arr.length){
+          result = false;
+        }
+        return result
+      })
+      console.log(arr1)
+  </script>
+</body>
+</html>

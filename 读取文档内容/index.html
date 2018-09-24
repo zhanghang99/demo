@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./index.css">
+  <script src='./xlsx.full.min.js'></script>
+</head>
+ <body>
+  <input type="file"onchange="importf(this,1)" />选择蓝菲雅
+  <div class="demo demo1"></div>
+  <div class="demo demo2"></div>
+  <br>
+  <br>
+  ********************************************************
+  <br>
+  <br>
+  <input type="file"onchange="importf(this,2)" />选择后台下载的天韵 
+  <br>
+  <br>
+  <input type="file"onchange="importf(this,3)" />选择天韵给过来的
+  <div class="demo demo5"></div>
+  <div class="demo demo3"></div>
+  <div class="demo demo4"></div>
+  <script>
+      /*
+      FileReader共有4种读取方法：
+      1.readAsArrayBuffer(file)：将文件读取为ArrayBuffer。
+      2.readAsBinaryString(file)：将文件读取为二进制字符串
+      3.readAsDataURL(file)：将文件读取为Data URL
+      4.readAsText(file, [encoding])：将文件读取为文本，encoding缺省值为'UTF-8'
+                    */
+      var wb;//读取完成的数据
+      var rABS = false; //是否将文件读取为二进制字符串
+      var tyData = {};
+      function importf(obj,index) {//导入
+        console.log(index);
+          if(!obj.files) {
+              return;
+          }
+          var f = obj.files[0];
+          var reader = new FileReader();
+          reader.onload = function(e) {
+              var data = e.target.result;
+              if(rABS) {
+                  wb = XLSX.read(btoa(fixdata(data)), {//手动转化
+                      type: 'base64'
+                  });
+              } else {
+                  wb = XLSX.read(data, {
+                      type: 'binary'
+                  });
+              }
+              if(index === 1){
+                //蓝菲雅是否已发货
+                lfy(XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]));
+              }else if(index === 2){
+                //蓝菲雅是否已发货
+                // ty(XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]));
+                tyData = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]])
+              } if(index === 3){
+                //蓝菲雅是否已发货
+                ty(XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]));
+              }
+              //wb.SheetNames[0]是获取Sheets中第一个Sheet的名字
+              //wb.Sheets[Sheet名]获取第一个Sheet的数据
+              // document.getElementById("demo").innerHTML= JSON.stringify( XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]) );
+          };
+          if(rABS) {
+              reader.readAsArrayBuffer(f);
+          } else {
+              reader.readAsBinaryString(f);
+          }
+      }
+
+      function fixdata(data) { //文件流转BinaryString
+          var o = "",
+              l = 0,
+              w = 10240;
+          for(; l < data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)));
+          o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)));
+          return o;
+      }
+      function lfy(data){
+        var lfyData = data.filter((v)=>{
+          return v.price === 0;
+        })
+        console.log(lfyData);
+        var html = `
+          <div class="reason">产品费为0的订单</div>
+          <div class="thead">
+            <div class="th">
+              <div class="td">id</div>
+              <div class="td">status</div>
+              <div class="td">sku</div>
+              <div class="td">price</div>
+            </div>
+          </div>
+          <div class="tbody">
+        `;
+
+        lfyData.forEach((v)=>{
+          html += `
+            <div class="tr">
+              <div class="td">${v.id}</div>
+              <div class="td">${v.status}</div>
+              <div class="td">${v.sku}</div>
+              <div class="td">${v.price}</div>
+            </div>
+          `
+        })
+        html += '</div>'
+        document.querySelector(".demo1").innerHTML = html;
+        // ********************************
+        var html1 =  `
+          <div class="reason">订单状态为非已发货状态的订单</div>
+          <div class="thead">
+            <div class="th">
+              <div class="td">id</div>
+              <div class="td">status</div>
+              <div class="td">sku</div>
+              <div class="td">price</div>
+            </div>
+          </div>
+          <div class="tbody">
+        `;
+        var lfyData1 = data.filter((v)=>{
+          return v.status !== '已发货';
+        })
+        lfyData1.forEach((v)=>{
+          html1 += `
+            <div class="tr">
+              <div class="td">${v.id}</div>
+              <div class="td">${v.status}</div>
+              <div class="td">${v.sku}</div>
+              <div class="td">${v.price}</div>
+            </div>
+          `
+        })
+        html1 += '</div>'
+        document.querySelector(".demo2").innerHTML = html1;
+        console.log(lfyData1);
+      }
+      function ty(data){
+        var Data = data.filter((v)=>{
+          var result = tyData.some((val)=>{
+            return v.id === val.id
+          })
+          return !result;
+        })
+        var html = `
+          <div class="reason">在当前月份未查到的订单</div>
+          <div class="thead">
+            <div class="th">
+              <div class="td">id</div>
+              <div class="td">status</div>
+              <div class="td">sku</div>
+              <div class="td">price</div>
+            </div>
+          </div>
+          <div class="tbody">
+        `;
+
+        Data.forEach((v)=>{
+          html += `
+            <div class="tr">
+              <div class="td">${v.id}</div>
+              <div class="td">${v.status}</div>
+              <div class="td">${v.sku}</div>
+              <div class="td">${v.price}</div>
+            </div>
+          `
+        })
+        html += '</div>'
+        document.querySelector(".demo3").innerHTML = html;
+        // // ********************************
+        var html1 =  `
+          <div class="reason">产品费不一致的订单</div>
+          <div class="thead">
+            <div class="th">
+              <div class="td">id</div>
+              <div class="td">status</div>
+              <div class="td">sku</div>
+              <div class="td">price</div>
+              <div class="td">difference</div>
+            </div>
+          </div>
+          <div class="tbody">
+        `;
+        var Data1 = [];
+        data.filter((v)=>{
+          var status = '',price=0;
+          var result1 = tyData.some((val)=>{
+            status = val.status;
+            price = v.price - val.price
+            return v.id === val.id
+          })
+          if(result1 && price !== 0){
+            Data1.push(Object.assign({},v,{status,difference:price}))
+          }
+        })
+        Data1.forEach((v)=>{
+          html1 += `
+            <div class="tr">
+              <div class="td">${v.id}</div>
+              <div class="td">${v.status}</div>
+              <div class="td">${v.sku}</div>
+              <div class="td">${v.price}</div>
+              <div class="td">${v.difference}</div>
+            </div>
+          `
+        })
+        html1 += '</div>'
+        document.querySelector(".demo4").innerHTML = html1;
+        // // ********************************
+        var html2 =  `
+          <div class="reason">是否有重复项</div>
+          <div class="thead">
+            <div class="th">
+              <div class="td">id</div>
+              <div class="td">status</div>
+              <div class="td">sku</div>
+              <div class="td">price</div>
+            </div>
+          </div>
+          <div class="tbody">
+        `;
+        var Data2 = data.filter((v,i)=>{
+          var result = true;
+          for(var s = 0;s<data.length;s++){
+            if(v.id === data[s].id && i !== s){
+              break;
+            }
+          }
+          if(s === data.length){
+            result = false;
+          }
+          return result
+        })
+        Data2.forEach((v)=>{
+          html2 += `
+            <div class="tr">
+              <div class="td">${v.id}</div>
+              <div class="td">${v.status}</div>
+              <div class="td">${v.sku}</div>
+              <div class="td">${v.price}</div>
+            </div>
+          `
+        })
+        html2 += '</div>'
+        document.querySelector(".demo5").innerHTML = html2;
+      }
+  </script>
+</body>
+
+</html>
