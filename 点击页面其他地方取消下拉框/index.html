@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .content{
+      display:none;
+      background:red;
+    }
+    .show{
+      display:block;
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <div class="target">click me</div>
+    <ul class="content show">
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+      <li>11</li>
+    </ul>
+  </div>
+  <script>
+    let main = document.querySelector('.main');
+    let target = document.querySelector('.target');
+    let content = document.querySelector('.content');
+    target.onclick = function(e){
+      let name = content.className;
+      if(name === 'content show'){
+        content.className = 'content'
+      }else{
+        content.className = 'content show'
+      }
+    }
+    main.addEventListener('click',function(e){
+      e.stopPropagation();
+    })
+    document.addEventListener('click',function(e){
+      content.className = 'content'
+    })
+  </script>
+</body>
+</html>
