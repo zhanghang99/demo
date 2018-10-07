@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function demo(str) {
+      var arr = str.split(''); //把字符串转换为数组
+      str = arr.sort().join(''); //首先进行排序，这样结果会把相同的字符放在一起，然后再转换为字符串
+
+      var value = '';
+      var index = 0;
+      var re = /(\w)\1+/g; //匹配字符，且重复这个字符，重复次数至少一次。
+      str.replace(re, function ($0, $1) {
+          //alert($0); 代表每次匹配成功的结果 : aa dd jj kk l sssssssssssssssss
+          //alert($1); 代表每次匹配成功的第一个子项，也就是\w: a d j k l S 
+          console.log($0,$1);
+          if (index < $0.length) { //如果index保存的值小于$0的长度就进行下面的操作
+              index = $0.length; // 这样index一直保存的就在最大的长度
+              value = $1; //value保存的是出现最多的这个字符
+          }
+      });
+      console.log('最多的字符:' + value + ',重复的次数:' + index); // s 17
+    }
+      //找重复项最多的字符个数
+    demo("aabbabbbbbcck");
+  </script>
+</body>
+</html>
