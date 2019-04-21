@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<style type="text/css">
+	.drag-containter > div {
+		height: 100px;
+		margin-top: 4px;
+		border: 1px solid #930309;
+	}
+</style>
+<script type="text/javascript">
+function drag(ev)
+{
+	ev.dataTransfer.setData("cid",ev.target.id);
+}
+function allowDrop(ev)
+{
+	ev.preventDefault();
+	var targetCpt = ev.target;
+	var targetCptMarginTopStr = targetCpt.style.marginTop;
+	var targetCptMarginTop =  parseInt(targetCptMarginTopStr, 10);
+	if(targetCptMarginTop === 10)return;
+ 
+	var listCpts = targetCpt.parentElement.children;
+	for (var i = listCpts.length - 1; i >= 0; i--) {
+		listCpts[i].style.marginTop = '2px';
+	}
+	targetCpt.style.marginTop = '10px';
+	console.log(ev.target.id);
+	console.log(targetCpt.style.marginTop);
+}
+function drop(ev)
+{
+	ev.preventDefault();
+	var overCid=ev.dataTransfer.getData("overCid");
+	var cid=ev.dataTransfer.getData("cid");
+ 
+	console.log('overCid : ', ev.target.id);
+	console.log('cid : ', cid);
+ 
+	var targetCpt = ev.target;
+	var listCpts = targetCpt.parentElement.children;
+	for (var i = listCpts.length - 1; i >= 0; i--) {
+		listCpts[i].style.marginTop = '2px';
+	}
+}
+</script>
+</head>
+<body>
+	<div class="drag-containter">
+		<div draggable='true' id="1" ondragstart='drag(event)' ondragover='allowDrop(event)' ondrop='drop(event)'>1</div>
+		<div draggable='true' id="2" ondragstart='drag(event)' ondragover='allowDrop(event)' ondrop='drop(event)'>2</div>
+		<div draggable='true' id="3" ondragstart='drag(event)' ondragover='allowDrop(event)' ondrop='drop(event)'>3</div>
+ 
+		<div draggable='true' id="4" ondragstart='drag(event)' ondragover='allowDrop(event)' ondrop='drop(event)'>4</div>
+		<div draggable='true' id="5" ondragstart='drag(event)' ondragover='allowDrop(event)' ondrop='drop(event)'>5</div>
+		<div draggable='true' id="6" ondragstart='drag(event)' ondragover='allowDrop(event)' ondrop='drop(event)'>6</div>
+		<div draggable='true' id="7" ondragstart='drag(event)' ondragover='allowDrop(event)' ondrop='drop(event)'>7</div>
+		<div draggable='true' id="8" ondragstart='drag(event)' ondragover='allowDrop(event)' ondrop='drop(event)'>8</div>
+		<div draggable='true' id="9" ondragstart='drag(event)' ondragover='allowDrop(event)' ondrop='drop(event)'>9</div>
+		<div draggable='true' id="10" ondragstart='drag(event)' ondragover='allowDrop(event)' ondrop='drop(event)'>10</div>
+	</div>
+</body>
+</html>

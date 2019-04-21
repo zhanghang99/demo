@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./js/websocket.js"></script>
+    <script>
+        var obj = {
+            url:'ws://localhost:8001',
+            firstTimeOut:0,
+            timeout:3000,
+            delayTimeOut:10000,
+            timeoutObj:null
+        }
+        var websocket =  new createWebSocket(obj);
+        if(websocket.content){console.log(websocket.content)}
+        websocket.onopen = function(event){
+            console.log(event,'外面onopen');
+        }
+        websocket.onmessage = function(event){
+            console.log(event,'外面onmessage');
+        }
+        websocket.onclose = function(event){
+            console.log(event,'外面onclose');
+        }
+        websocket.onerror = function(event){
+            console.log(event,'外面onerror');
+        }
+        window.addEventListener('click', function()  {
+            console.log('外面点击关闭');
+            websocket.close();
+        });
+    </script>
+</body>
+</html>
