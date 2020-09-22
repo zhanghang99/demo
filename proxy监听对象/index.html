@@ -1,0 +1,107 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-08-26 10:02:01
+ * @LastEditTime: 2020-09-22 09:41:36
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \ceo_serverc:\Users\Administrator\Desktop\index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>proxy监听对象</title>
+    <script>
+        /*
+        *
+        * 监听中转站，对象值发生变化后通知监听者
+        * 
+        */
+        class Fn{
+            constructor(obj = {}){
+                this.targetObj = obj
+                this.SaveCallback = null; 
+                this.proxy = this.proxy();
+                this.init = this.init();
+            }
+
+            // 需要监听的对象值数据变化
+            init = () => {
+                Listener(this.changeProxy)
+            }
+
+            // 外部数据变化后回调改变内部监听对象值
+            changeProxy = (data) => {
+                this.proxy.x = data;
+            }
+
+            // 桥函数
+            bridge = (data,call) => {
+                if(call){
+                    this.SaveCallback = call;
+                }
+                // 通知回调监听对象值被set过
+                // 如果是只要值被set过就触发就不用添加条件了，
+                // 如果还需要满足某些条件才去触发回调，请添加判断条件
+                if(this.SaveCallback){
+                    this.SaveCallback(data)
+                }
+            }
+
+            // 监听this.targetObj的变化
+            proxy = () => {
+                return new Proxy(this.targetObj,{
+                    get: (target,propKey) => {
+                        return target[propKey];
+                    },
+                    set: (target, key, value) => {
+                        target[key] = value;
+                        this.bridge(this.proxy);
+                        return true;
+                    }
+                })
+            }
+        }
+
+        /*
+        *
+        * 对象值发生变化后由监听中转站通知你对象值改变啦
+        * 
+        */
+
+        let ProxyFn = new Fn();
+
+        /*
+        *
+        * 监听对象值，对象值发生变化后告知监听中转站
+        * 
+        */
+        function Listener(fun){
+            var x = 1;
+            setInterval(()=>{
+                x = x + 1;
+                fun(x);
+            },1000)
+        }
+
+        // 回调要做的事
+        function callback(data){
+            console.log(data,'---');
+        }
+
+        // 初始触发函数
+        function trigger(){
+            // 目标值达标后触发回调
+            ProxyFn.bridge({},callback)
+        }
+
+        trigger();
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
