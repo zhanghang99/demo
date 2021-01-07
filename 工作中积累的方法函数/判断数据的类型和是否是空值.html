@@ -1,0 +1,50 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-01-07 14:36:09
+ * @LastEditTime: 2021-01-07 14:42:43
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \ceo_servere:\git\demo\工作中积累的方法函数\浮点数加减乘除导致的多位小数问题.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>判断数据的类型和是否是空值</title>
+</head>
+<body>
+    <script>
+        /**
+         * @description: 数据容错处理judgment(res, ['data', 'data', 'key'], 'Array',true)
+         * @param {res:初始数据}
+         * @param {arr:目标数据的所有key的组合,目标数据:res.data.data.key,所有key的组合:['data', 'data', 'key'],当所有key都不存在时传[]}
+         * @param {type:目标数据的数据类型}
+         * @param {isEmpty:判断是否需要检测目标数据Array或者Object时内容为空，true：需要判断，false:不需要判断，非必要字段}
+         */
+        const judgment = (res, arr, type, isEmpty) => {
+            try {
+                let value = JSON.parse(JSON.stringify(res));
+                if (arr.length) {
+                    arr.forEach(v => {
+                        value = value[v];
+                    });
+                }
+                const toString = Object.prototype.toString.call(value).slice(8, -1);
+                if (isEmpty) {
+                    if ((type === 'Array' && value.length === 0) || (type === 'Object' && Object.keys(value).length === 0)) {
+                        return false;
+                    }
+                }
+                if (toString === type) {
+                    return true;
+                }
+                return false;
+            } catch (err) {
+                return false;
+            }
+        };
+    </script>
+</body>
+</html>

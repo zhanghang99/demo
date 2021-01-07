@@ -1,0 +1,9 @@
+.demo{
+  margin-top:20px;
+}
+.thead .th,.tbody .tr{
+  display: flex;
+}
+.thead .th .td,.tbody .tr .td{
+  flex: 1;
+}

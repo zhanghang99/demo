@@ -1,0 +1,52 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-01-07 14:36:09
+ * @LastEditTime: 2021-01-07 14:40:16
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \ceo_servere:\git\demo\工作中积累的方法函数\浮点数加减乘除导致的多位小数问题.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>浮点数加减乘除导致的多位小数问题</title>
+</head>
+<body>
+    <script>
+        // 步骤一：安装math.js依赖
+        // npm install mathjs
+
+        // 步骤二：在math.js的基础上方法封装
+        let $math = require('mathjs');
+        export const math = {
+            add() {
+                return comp('add', arguments)
+            },
+            subtract() {
+                return comp('subtract', arguments)
+            },
+            multiply() {
+                return comp('multiply', arguments)
+            },
+            divide() {
+                return comp('divide', arguments)
+            },
+            }
+            function comp(_func, args) {
+            let t = $math.chain($math.bignumber(args[0]));
+            for (let i=1; i<args.length; i++) {
+                t = t[_func]($math.bignumber(args[i]))
+            }
+            // 防止超过6位使用科学计数法
+            return parseFloat(t.done())
+        }
+
+
+        // 步骤三：调用
+        math.add(0.1, 0.2, 0.5)
+    </script>
+</body>
+</html>
